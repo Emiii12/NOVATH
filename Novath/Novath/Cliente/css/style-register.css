@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+
+body {
+    background: #141E30;
+    background: -webkit-linear-gradient(to right, #141E30, #243B55, #243B55);
+    background: linear-gradient(to right, #141E30, #141E30, #243B55);
+}
+
+header {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    z-index: 50;
+}
+
+header a span {
+    color: #a7bfe1;
+    border-radius: 20%;
+    background: transparent;
+}
+
+.contenedor {
+    position: absolute;
+    background: transparent;
+    width: 500px;
+    height: 750px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #a7bfe1;
+    border-radius: 3%;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.contenedor .logo-contenedor {
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    transform: translate(-50%, -150%);
+}
+
+.campo-login {
+    width: 100%;
+    padding: 40px;
+}
+
+.campo-login h2 {
+    font-size: 2em;
+    color: #a7bfe1;
+    text-align: center;
+    margin: 10px;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #a7bfe1;
+    border-radius: 10px;
+    color: #a7bfe1;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #a7bfe1;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .3s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -17px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #a7bfe1;
+    font-weight: 300;
+    padding: 0 35px 0 5px;
+} 
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.4em;
+    color: #a7bfe1;
+    line-height: 57px;
+}
+
+.btn-login {
+    width: 50%;
+    transform: translateX(50%);
+    height: 45px;
+    background: transparent;
+    border: .3px solid #a7bfe1;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #a7bfe1;
+    transition: .3s;
+}
+
+.btn-login:hover {
+    background: #a7bfe1;
+    color: #302b63;
+}
+
+.register-link {
+    font-size: .8em;
+    font-weight: 300;
+    text-align: center;
+    color: #a7bfe1;
+    margin: 20px;
+}
+
+.register-link p a {
+    color: #a7bfe1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}

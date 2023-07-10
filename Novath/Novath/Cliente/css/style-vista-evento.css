@@ -1,0 +1,11 @@
+.boton-card {
+    border: 1px solid #a7bfe1;
+    transition: .3s;
+    color: #a7bfe1;
+}
+
+.boton-card:hover {
+    background: #a7bfe1;
+    color: black;
+    scale: 1.02;
+}
