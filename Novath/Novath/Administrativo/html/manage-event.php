@@ -90,8 +90,8 @@
                                     </div>
                                     <div class="card-body card-body-form">
                                         <form method="POST" enctype="multipart/form-data">
-                                            <div class="d-flex justify-between">
-                                                <div class="">
+                                            <div class="d-flex justify-between p-1">
+                                                <div class="row g-3 me-1 w-50">
                                                     <div class="form-group">
                                                         <label for="txtID">ID</label>
                                                         <input type="text" class="form-control" name="txtID" id="txtID" value="" required readonly>
@@ -108,19 +108,18 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="txtDescripcion">Descripcion</label>
-                                                        <textarea class="form-control" name="txtDescripcion" id="txtDescripcion" rows="3" required></textarea>
+                                                        <textarea class="form-control" name="txtDescripcion" id="txtDescripcion" rows="1" required></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="">
-                                                    <div class="d-flex justify-between">
-                                                        <div class="form-group">
+                                                <div class="row g-3 ms-1 w-50">
+                                                    <div class="d-flex justify-between d-grid gap-2">
+                                                        <div class="form-group w-50 mb-3">
                                                             <label for="txtFechaEvento">Fecha</label>
-                                                            <input type="date" class="form-control" value="" name="txtFechaEvento" id="txtFechaEvento" placeholder="Fecha del evento" required>
+                                                            <input type="date" class="form-control w-100" value="" name="txtFechaEvento" id="txtFechaEvento" placeholder="Fecha del evento" required>
                                                         </div>
-                                                        <br>
-                                                        <div class="form-group">
+                                                        <div class="form-group w-50 mb-3">
                                                             <label for="txtHoraEvento">Horario</label>
-                                                            <input type="time" class="form-control" value="" name="txtHoraEvento" id="txtHoraEvento" placeholder="Hora del evento"  required>
+                                                            <input type="time" class="form-control w-100" value="" name="txtHoraEvento" id="txtHoraEvento" placeholder="Hora del evento" required>
                                                         </div>
                                                     </div>
                                                     <br>
@@ -136,61 +135,11 @@
                                                     <br>
                                                     <div class="form-group">
                                                         <label for="txtImgEvento">Imagen</label>
-                                                        <br/>
                                                             <img src="../../img/#" width="50">
                                                         <input type="file" class="form-control form-file" name="txtImgEvento" id="txtImgEvento">
                                                     </div>
                                                 </div>
                                             </div>
-
-
-                                            <div class="form-group">
-                                                <label for="txtID">ID</label>
-                                                <input type="text" class="form-control" name="txtID" id="txtID" value="" required readonly>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtNombreArtista">Artista</label>
-                                                <input type="text" class="form-control" value="" name="txtNombreArtista" id="txtNombreArtista" placeholder="Nombre del artista" required>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtNombreEvento">Evento</label>
-                                                <input type="text" class="form-control" value="" name="txtNombreEvento" id="txtNombreEvento" placeholder="Nombre del evento" required>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtFechaEvento">Fecha</label>
-                                                <input type="date" class="form-control" value="" name="txtFechaEvento" id="txtFechaEvento" placeholder="Fecha del evento" required>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtHoraEvento">Horario</label>
-                                                <input type="time" class="form-control" value="" name="txtHoraEvento" id="txtHoraEvento" placeholder="Hora del evento"  required>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtDescripcion">Descripcion</label>
-                                                <textarea class="form-control" name="txtDescripcion" id="txtDescripcion" rows="3" required></textarea>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtEntrada">Entradas En Venta</label>
-                                                <input type="text" class="form-control" value="" name="txtEntrada" id="txtEntrada" placeholder="Cantidad de entradas" required>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtPrecio">Precio</label>
-                                                <input type="text" class="form-control" value="" name="txtPrecio" id="txtPrecio" placeholder="Precio de entradas" required>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="txtImgEvento">Imagen</label>
-                                                <br/>
-                                                    <img src="../../img/#" width="50">
-                                                <input type="file" class="form-control form-file" name="txtImgEvento" id="txtImgEvento">
-                                            </div>
-                                            <br>
                                             <div id="grupo-boton" class="botones d-grid gap-2 d-flex" role="group" aria-label="">
                                                 <button type="submit" name="accion" value="Agregar" class="boton-card-eventos btn  w-50">Agregar</button>
                                                 <button type="submit" name="accion" value="Modificar" class="boton-card-eventos btn  w-50">Modificar</button>
