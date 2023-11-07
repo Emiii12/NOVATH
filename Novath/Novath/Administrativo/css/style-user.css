@@ -19,12 +19,10 @@
     background: #ffffff;
 }
 
-
 /* BARRA DE NAVEGACIÓN Y FILTROS */
 .container-button-filter .button-card {
     width: 20%;
 }
-
 
 /* MEDIA QUERYS */
 @media only screen and (max-width: 576px) {

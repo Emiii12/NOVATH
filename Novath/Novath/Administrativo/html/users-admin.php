@@ -1,49 +1,103 @@
 <?php include("../template/header.php")?>
 <head>
     <title>Gestión Usuarios Admin | NOVATH ADMIN</title>
+    <link rel="stylesheet" href="../css/style-user-admin.css">
 </head>
 
-
-    <br><br><br><br>
+    <br><br><br>
 
     <main>
-        <h1 class="titulo-pagina text-center">ADMINISTRADORES</h1>
+        <h1 class="title-page text-center m-4">ADMINISTRADORES</h1>
         <div class="container">
             <div class="row">
-                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <div class="grupo-saltos">
-                        <br><br><br>
+                <div class="col col-12">
+                    <div class="d-flex flex-column mb-3">
+                        <a class="button-accordion btn w-100" data-bs-toggle="collapse" href="#collapseBusqueda" role="button" aria-expanded="false" aria-controls="collapseBusqueda">Buscar o Filtrar</a>
+                        <div class="collapse" id="collapseBusqueda">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="class-title">Buscador</h4>
+                                    <form id="form2" name="form2" method="POST" action="">
+                                        <div class="row col-xl-12">
+                                            <div class="mb-3">
+                                                <div class="form-group col-12 mb-3">
+                                                    <label for="txtBuscar">Evento y/o artista a buscar</label>
+                                                    <input type="text" class="form-control" name="txtBuscar" id="txtBuscar">
+                                                </div>
+                                                <h4 class="card-title">Filtro de búsqueda</h4>
+                                                <div class="col-12 d-flex d-grid gap-2 mb-3">
+                                                    <div class="form-group flex-grow-1">
+                                                        <label for="txtPrecioDesde">Precio desde:</label>
+                                                        <input type="number" class="form-control" id="txtPrecioDesde" name="txtPrecioDesde" value="">
+                                                    </div>
+                                                    <div class="form-group flex-grow-1">
+                                                        <label for="txtPrecioHasta">Precio hasta:</label>
+                                                        <input type="number" class="form-control" id="txtPrecioHasta" name="txtPrecioHasta" value="">
+                                                    </div>
+                                                    <div class="form-group flex-grow-1">
+                                                        <label for="txtFiltrarFecha">Fecha:</label>
+                                                        <input type="date" class="form-control" id="txtFiltrarFecha" name="txtFiltrarFecha" value="">
+                                                    </div>
+                                                </div>
+                                                <h4 class="card-title">Ordenar por:</h4>
+                                                <div class="d-flex justify-between col-12 mb-3">
+                                                    <div class="form-group col-12">
+                                                        Selecciona el orden
+                                                        <select class="form-control" name="orden" id="orden" id="assigned-tutor-filter">
+                                                            <option value="Elije un orden"></option>
+                                                            <option value="1">Ordenar por nombre</option>
+                                                            <option value="2">Ordenar por artista</option>
+                                                            <option value="3">Ordenar por precio de menor a mayor</option>
+                                                            <option value="4">Ordenar por precio de mayor a menor</option>
+                                                            <option value="5">Ordenar por fecha de antiguo</option>
+                                                            <option value="6">Ordenar por fecha de antiguo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="container-button-filter d-flex justify-content-end">
+                                                    <input type="submit" class="button-card btn" value="Ver">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <table class="table">
+
+
+                    
+                    <table class="table table-general">
                         <thead class="thead-light">
                             <tr>
-                                <th class="fila-tabla" scope="col">ID</th>
-                                <th class="fila-tabla" scope="col">Nombre</th>
-                                <th class="fila-tabla" scope="col">Apellido</th>
-                                <th class="fila-tabla" scope="col">DNI</th>
-                                <th class="fila-tabla" scope="col">Fecha de Nacimiento</th>
-                                <th class="fila-tabla" scope="col">Dirección</th>
-                                <th class="fila-tabla" scope="col">Teléfono</th>
-                                <th class="fila-tabla" scope="col">Email</th>
-                                <th class="fila-tabla" scope="col">Contraseña</th>
-                                <th class="fila-tabla" scope="col">Acción</th>
+                                <th class="row-table" scope="col">ID</th>
+                                <th class="row-table" scope="col">Nombre</th>
+                                <th class="row-table" scope="col">Apellido</th>
+                                <th class="row-table" scope="col">DNI</th>
+                                <th class="row-table" scope="col">Fecha de Nacimiento</th>
+                                <th class="row-table" scope="col">Dirección</th>
+                                <th class="row-table" scope="col">Teléfono</th>
+                                <th class="row-table" scope="col">Email</th>
+                                <th class="row-table" scope="col">Contraseña</th>
+                                <th class="row-table" scope="col">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="filas-siguientes">1</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes">ejemplo</td>
-                                <td class="filas-siguientes text-center">
+                                <td class="rows-next">1</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next">ejemplo</td>
+                                <td class="buttons-table-group rows-next text-center">
                                     <form method="POST">
                                         <input type="hidden" name="txtID" id="txtID" value="<?php echo $evento['id_evento'] ?>">
-                                        <input type="submit" name="accion" value="Borrar Cuenta" class="boton-card-eventos btn btn-outline-dark">
+                                        <input type="submit" name="accion" value="Borrar Cuenta" class="button-table btn">
                                     </form>
                                 </td>
                             </tr>
@@ -54,6 +108,32 @@
         </div>
     </main>
 
+<!-- 
+    <script>
+        const botones = document.querySelectorAll('.boton-filter-event');
 
+        botones.forEach((boton) => {
+            boton.addEventListener('click', () => {
+                // Ocultar todos los colapsos
+                const colapsos = document.querySelectorAll('.collapse');
+                colapsos.forEach((colapso) => {
+                    colapso.classList.remove('show');
+                });
+
+                // Mostrar el colapso asociado al botón actual
+                const targetId = boton.getAttribute('data-target').substring(1); // Eliminar el "#" del ID
+                const targetColapso = document.getElementById(targetId);
+                targetColapso.classList.add('show');
+            });
+        });
+    </script> -->
+
+<!--
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("seccion-filtro-busqueda").classList.remove("show");
+        });
+    </script>
+    -->
 </body>
 </html>
