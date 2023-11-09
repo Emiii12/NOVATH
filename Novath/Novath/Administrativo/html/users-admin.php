@@ -21,23 +21,8 @@
                                         <div class="row col-xl-12">
                                             <div class="mb-3">
                                                 <div class="form-group col-12 mb-3">
-                                                    <label for="txtBuscar">Evento y/o artista a buscar</label>
+                                                    <label for="txtBuscar">Buscar por nombre, apellido, email...</label>
                                                     <input type="text" class="form-control" name="txtBuscar" id="txtBuscar">
-                                                </div>
-                                                <h4 class="card-title">Filtro de búsqueda</h4>
-                                                <div class="col-12 d-flex d-grid gap-2 mb-3">
-                                                    <div class="form-group flex-grow-1">
-                                                        <label for="txtPrecioDesde">Precio desde:</label>
-                                                        <input type="number" class="form-control" id="txtPrecioDesde" name="txtPrecioDesde" value="">
-                                                    </div>
-                                                    <div class="form-group flex-grow-1">
-                                                        <label for="txtPrecioHasta">Precio hasta:</label>
-                                                        <input type="number" class="form-control" id="txtPrecioHasta" name="txtPrecioHasta" value="">
-                                                    </div>
-                                                    <div class="form-group flex-grow-1">
-                                                        <label for="txtFiltrarFecha">Fecha:</label>
-                                                        <input type="date" class="form-control" id="txtFiltrarFecha" name="txtFiltrarFecha" value="">
-                                                    </div>
                                                 </div>
                                                 <h4 class="card-title">Ordenar por:</h4>
                                                 <div class="d-flex justify-between col-12 mb-3">
@@ -46,11 +31,8 @@
                                                         <select class="form-control" name="orden" id="orden" id="assigned-tutor-filter">
                                                             <option value="Elije un orden"></option>
                                                             <option value="1">Ordenar por nombre</option>
-                                                            <option value="2">Ordenar por artista</option>
-                                                            <option value="3">Ordenar por precio de menor a mayor</option>
-                                                            <option value="4">Ordenar por precio de mayor a menor</option>
-                                                            <option value="5">Ordenar por fecha de antiguo</option>
-                                                            <option value="6">Ordenar por fecha de antiguo</option>
+                                                            <option value="2">Ordenar por apellido</option>
+                                                            <option value="3">Ordenar por DNI</option>
                                                         </select>
                                                     </div>
                                                 </div>

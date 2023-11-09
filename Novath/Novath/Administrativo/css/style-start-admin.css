@@ -1,0 +1,41 @@
+body {
+    background: #ffffff;
+}
+
+/* CONTENEDOR */
+.container_start-admin {
+    background: #29273b;
+    height: 300px;
+    margin-top: 150px;
+    border-radius: 20px;
+}
+
+.title {
+    font-size: 4rem;
+    color: #a7bfe1;
+}
+
+.subtitle {
+    font-size: 3rem;
+    color: #a7bfe1;
+}
+
+@media screen and (max-width: 767px) {
+    .title {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .title {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.3rem;
+    }
+}

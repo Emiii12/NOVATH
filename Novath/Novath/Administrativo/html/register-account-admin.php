@@ -13,14 +13,14 @@
     
 
     <header>
-        <a href="inicio-admin.html"><span><ion-icon name="chevron-back-outline"></ion-icon></span></a>
+        <a href="start-admin.php"><span><ion-icon name="chevron-back-outline"></ion-icon></span></a>
     </header>
 
-    <div class="contenedor">
-        <div class="campo-login">
-            <img class="logo-contenedor" src="../img/NOVATH-claro.png" alt="NOVATH">
-            <h2>Registráte</h2>
+    <div class="container-main">
+        <div class="register-sector">
+            <img class="logo-container" src="../img/NOVATH-claro.png" alt="NOVATH">
             <form method="POST">
+                <h2>Registráte</h2>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="person"></ion-icon></span>
                     <input type="text" name="txtNombre" id="txtNombre" required>
@@ -46,7 +46,7 @@
                     <input type="tel" name="txtTelefono" id="txtTelefono" required>
                     <label for="txtTelefono">Teléfono</label>
                 </div>
-                <button class="btn-register">Crear Cuenta</button>
+                <button class="btn-register">Registrar</button>
             </form>
         </div>
     </div>

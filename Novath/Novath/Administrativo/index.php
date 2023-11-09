@@ -11,11 +11,11 @@
 </head>
 <body>
 
-    <div class="contenedor">
-        <div class="campo-login">
-            <img class="logo-contenedor" src="img/NOVATH-claro.png" alt="NOVATH">
-            <h2>Iniciá Sesión</h2>
+    <div class="container-main">
+        <div class="login-sector">
+            <img src="img/NOVATH-claro.png" alt="NOVATH">
             <form method="POST">
+                <h2>Iniciá Sesión</h2>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
                     <input type="email" name="txtEmail" id="txtEmail" required>
