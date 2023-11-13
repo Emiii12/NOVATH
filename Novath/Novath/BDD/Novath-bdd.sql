@@ -6,6 +6,7 @@ CREATE TABLE Usuario (
   id int AUTO_INCREMENT,
   nombre varchar(60),
   apellido varchar(100),
+  dni varchar(15),
   email varchar(50),
   contrasena varchar(200),
   telefono varchar(20),

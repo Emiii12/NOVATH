@@ -45,9 +45,9 @@ if ((!empty($txtEmail)) && (!empty($txtContrasena))) {
         <a href="../index.php"><span><ion-icon name="chevron-back-outline"></ion-icon></span></a>
     </header>
 
-    <div class="contenedor">
-        <div class="campo-login">
-            <img class="logo-contenedor" src="../img/NOVATH.png" alt="NOVATH">
+    <div class="container-main">
+        <div class="login-sector">
+            <img src="../img/NOVATH.png" alt="NOVATH">
             <h2>Iniciá Sesión</h2>
             <form method="POST">
                 <div class="input-box">

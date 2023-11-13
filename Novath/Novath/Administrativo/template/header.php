@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="inicio-admin.php">
+            <a class="navbar-brand" href="../html/start-admin.php">
                 <img class="novath-titulo" src="../img/NOVATH.png" width="180" alt="NOVATH-ADMIN">
                 <img class="novath-icono" src="../img/NOVATH-LOGO.png" width="50" alt="NOVATH">
             </a>
@@ -22,21 +22,27 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar-toggler">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="register-account-admin.php">Crear nuevo usuario</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="users-admin.php">Usuarios admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="users.php">Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="manage-event.php">Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../php/logout.php">Cerrar sesión</a>
-                    </li>
+
+                    <?php if (!empty($user)): ?>
+                        <?php if ($user['super_admin']): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="register-account-admin.php">Crear nuevo usuario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users-admin.php">Usuarios admin</a>
+                        </li>
+                    <?php elseif ($user['administrador']): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.php">Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="manage-event.php">Eventos</a>
+                        </li>
+                    <?php endif; ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../php/logout.php">Cerrar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

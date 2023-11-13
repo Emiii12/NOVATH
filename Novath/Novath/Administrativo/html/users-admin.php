@@ -1,3 +1,25 @@
+<?php 
+
+include("../php/conexion.php");
+include('../php/verificarSesion.php');
+$user = verificarSesion($conexion);
+
+$txtID = !empty($_POST['txtID']) ? $_POST['txtID'] : "";
+$accion = !empty($_POST['accion']) ? $_POST['accion'] : "";
+
+if($accion == "Borrar") {
+    $sentenciaSQL=$conexion->prepare("DELETE FROM usuario WHERE id=:id");
+    $sentenciaSQL->bindParam(':id', $txtID);
+    $sentenciaSQL->execute();
+}
+
+$sentenciaSQL = $conexion->prepare(" SELECT id, nombre, apellido, dni, email, telefono FROM usuario WHERE administrador='1'");
+
+$sentenciaSQL->execute();
+$listaUsusario = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <?php include("../template/header.php")?>
 <head>
     <title>Gestión Usuarios Admin | NOVATH ADMIN</title>
@@ -11,45 +33,6 @@
         <div class="container">
             <div class="row">
                 <div class="col col-12">
-                    <div class="d-flex flex-column mb-3">
-                        <a class="button-accordion btn w-100" data-bs-toggle="collapse" href="#collapseBusqueda" role="button" aria-expanded="false" aria-controls="collapseBusqueda">Buscar o Filtrar</a>
-                        <div class="collapse" id="collapseBusqueda">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="class-title">Buscador</h4>
-                                    <form id="form2" name="form2" method="POST" action="">
-                                        <div class="row col-xl-12">
-                                            <div class="mb-3">
-                                                <div class="form-group col-12 mb-3">
-                                                    <label for="txtBuscar">Buscar por nombre, apellido, email...</label>
-                                                    <input type="text" class="form-control" name="txtBuscar" id="txtBuscar">
-                                                </div>
-                                                <h4 class="card-title">Ordenar por:</h4>
-                                                <div class="d-flex justify-between col-12 mb-3">
-                                                    <div class="form-group col-12">
-                                                        Selecciona el orden
-                                                        <select class="form-control" name="orden" id="orden" id="assigned-tutor-filter">
-                                                            <option value="Elije un orden"></option>
-                                                            <option value="1">Ordenar por nombre</option>
-                                                            <option value="2">Ordenar por apellido</option>
-                                                            <option value="3">Ordenar por DNI</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="container-button-filter d-flex justify-content-end">
-                                                    <input type="submit" class="button-card btn" value="Ver">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    
                     <table class="table table-general">
                         <thead class="thead-light">
                             <tr>
@@ -57,32 +40,28 @@
                                 <th class="row-table" scope="col">Nombre</th>
                                 <th class="row-table" scope="col">Apellido</th>
                                 <th class="row-table" scope="col">DNI</th>
-                                <th class="row-table" scope="col">Fecha de Nacimiento</th>
-                                <th class="row-table" scope="col">Dirección</th>
                                 <th class="row-table" scope="col">Teléfono</th>
                                 <th class="row-table" scope="col">Email</th>
-                                <th class="row-table" scope="col">Contraseña</th>
                                 <th class="row-table" scope="col">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php foreach ($listaUsusario as $usuario) { ?>
                             <tr>
-                                <td class="rows-next">1</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
-                                <td class="rows-next">ejemplo</td>
+                                <td class="rows-next" data-titulo="ID: "><?php echo $usuario['id'] ?></td>
+                                <td class="rows-next" data-titulo="NOMBRE: "><?php echo $usuario['nombre'] ?></td>
+                                <td class="rows-next" data-titulo="APELLIDO: "><?php echo $usuario['apellido'] ?></td>
+                                <td class="rows-next" data-titulo="DNI: "><?php echo $usuario['dni'] ?></td>
+                                <td class="rows-next" data-titulo="TELÉFONO: "><?php echo $usuario['telefono'] ?></td>
+                                <td class="rows-next" data-titulo="EMAIL: "><?php echo $usuario['email'] ?></td>
                                 <td class="buttons-table-group rows-next text-center">
                                     <form method="POST">
-                                        <input type="hidden" name="txtID" id="txtID" value="<?php echo $evento['id_evento'] ?>">
-                                        <input type="submit" name="accion" value="Borrar Cuenta" class="button-table btn">
+                                        <input type="hidden" name="txtID" id="txtID" value="<?php echo $usuario['id'] ?>">
+                                        <input type="submit" name="accion" value="Borrar" class="button-table btn">
                                     </form>
                                 </td>
                             </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>

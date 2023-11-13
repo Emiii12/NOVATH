@@ -44,9 +44,9 @@ if( !empty($txtEmail) && (!empty($txtApellido)) && (!empty($txtEmail)) && (!empt
         <a href="../index.php"><span><ion-icon name="chevron-back-outline"></ion-icon></span></a>
     </header>
 
-    <div class="contenedor">
-        <div class="campo-login">
-            <img class="logo-contenedor" src="../img/NOVATH.png" alt="NOVATH">
+    <div class="container-main">
+        <div class="register-sector">
+            <img class="logo-container" src="../img/NOVATH.png" alt="NOVATH">
             <h2>Registráte</h2>
             <form method="POST">
                 <div class="input-box">
@@ -74,7 +74,7 @@ if( !empty($txtEmail) && (!empty($txtApellido)) && (!empty($txtEmail)) && (!empt
                     <input type="tel" name="txtTelefono" id="txtTelefono" required>
                     <label for="txtTelefono">Teléfono</label>
                 </div>
-                <button class="btn-login">Continuar</button>
+                <button class="btn-register">Continuar</button>
                 <div class="register-link">
                     <p>¿Ya ténes una cuenta? <a href="login.php"><b>Iniciá Sesión acá</b></a></p>
                 </div>
