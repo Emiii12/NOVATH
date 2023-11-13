@@ -3,29 +3,24 @@ include("../../Administrativo/php/conexion.php");
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id_evento = $_GET['id'];
-    
-    // Consulta para obtener la información del evento específico
+
     $sentenciaSQL = $conexion->prepare("SELECT id_evento, artista, nombre_evento, fecha, horario, imagen, descripcion FROM evento WHERE id_evento = :id");
     $sentenciaSQL->bindParam(':id', $id_evento, PDO::PARAM_INT);
     $sentenciaSQL->execute();
     $evento = $sentenciaSQL->fetch(PDO::FETCH_ASSOC);
 
-    // Verificar si se encontró el evento
-    if ($evento) {
-        // Obtener los datos del evento
-        $artista = $evento['artista'];
-        $nombre_evento = $evento['nombre_evento'];
-        $fecha = $evento['fecha'];
-        $horario = $evento['horario'];
-        $imagen = $evento['imagen'];
-        $descripcion = $evento['descripcion'];
-    } else {
-        // Si no se encontró el evento, puedes mostrar un mensaje de error o redireccionar a otra página
+    if (!$evento) {
         echo "Evento no encontrado";
         exit();
     }
+
+    $artista = $evento['artista'];
+    $nombre_evento = $evento['nombre_evento'];
+    $fecha = $evento['fecha'];
+    $horario = $evento['horario'];
+    $imagen = $evento['imagen'];
+    $descripcion = $evento['descripcion'];
 } else {
-    // Si no se recibió un ID de evento válido, puedes mostrar un mensaje de error o redireccionar a otra página
     echo "ID de evento inválido";
     exit();
 }
@@ -33,7 +28,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    // Consultar los datos del usuario
     $sentenciaSQL = $conexion->prepare("SELECT id, email, contrasena, nombre, apellido, administrador, super_admin, descuento_acumulativo FROM usuario WHERE id = :id");
     $sentenciaSQL->bindParam(':id', $_SESSION['user_id']);
     $sentenciaSQL->execute();
@@ -42,21 +36,16 @@ if (isset($_SESSION['user_id'])) {
     if ($cuenta) {
         $user = $cuenta;
 
-        // Verificar si el usuario tiene el descuento acumulativo activado
         $descuentoAcumulativo = $user['descuento_acumulativo'];
 
-        if (!empty($descuentoAcumulativo) && $descuentoAcumulativo >= 0 ) {
-            /*
-            $sentenciaSQL2 = $conexion->prepare("SELECT e.cod_entrada, e.id_evento, e.qr, e.butaca, e.precio FROM entrada e INNER JOIN evento ev on e.id_evento = ev.id_evento);")
+        if (!empty($descuentoAcumulativo) && $descuentoAcumulativo >= 0) {
+            $sentenciaSQL2 = $conexion->prepare("SELECT precio FROM entrada WHERE id_evento = :id_evento");
+            $sentenciaSQL2->bindParam(':id_evento', $id_evento, PDO::PARAM_INT);
             $sentenciaSQL2->execute();
-            $precio = $sentenciaSQL2->fetch(PDO::FETCH_ASSOC);
-*/
-            $precio = 6000;
+            $entradaPrecio = $sentenciaSQL2->fetch(PDO::FETCH_ASSOC);
 
-            $porcentajeDescuento = 0; // Descuento máximo del 35%
+            $precio = ($entradaPrecio && $entradaPrecio['precio'] > 0) ? $entradaPrecio['precio'] : 6000;
             $descuento = (($precio * $descuentoAcumulativo) / 100);
-
-            // Aplicar el descuento a una entrada
             $precioTotal = $precio - $descuento;
 
             $precio_js = $precio;
@@ -65,15 +54,15 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 
-if( isset($_SESSION['user_id'])) {
-    $sentenciaSQL = $conexion->prepare("SELECT id, email, contrasena, nombre, apellido, administrador, super_admin FROM usuario WHERE id=:id");
+if (isset($_SESSION['user_id'])) {
+    $sentenciaSQL = $conexion->prepare("SELECT id, email, contrasena, nombre, apellido, descuento_acumulativo, suspension, administrador, super_admin FROM usuario WHERE id=:id");
     $sentenciaSQL->bindParam(':id', $_SESSION['user_id']);
     $sentenciaSQL->execute();
     $cuenta = $sentenciaSQL->fetch(PDO::FETCH_ASSOC);
 
     $user = null;
 
-    if(count($cuenta) > 0) {
+    if (count($cuenta) > 0) {
         $user = $cuenta;
     }
 
@@ -84,165 +73,138 @@ if( isset($_SESSION['user_id'])) {
     }
 }
 
-
 $sentenciaSQL = $conexion->prepare("SELECT cod_entrada, id_evento, qr, butaca, precio FROM entrada");
 $sentenciaSQL->execute();
 $listaEntradas = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-?>
+$precio = 0;
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $nombre_evento; ?> - NOVATH</title>
-    <link rel="shortcut icon" href="../img/NOVATH-LOGO.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/style-index.css">
-    <link rel="stylesheet" href="../css/style-vista-evento.css">
-</head>
-<body>
-    
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">
-                <img class="novath-titulo" src="../img/NOVATH.png" width="180" alt="NOVATH">
-                <img class="novath-icono" src="../img/NOVATH-LOGO.png" width="50" alt="NOVATH">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <?php if (!empty($user)): ?>
-                <div class="collapse navbar-collapse" id="navbar-toggler"> 
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../php/logout.php">
-                                <button type="button" class="btn btn-outline-light">Cerrar Sesión</button>
-                            </a>
-                        </li>
-                        <li class="nav-item text-center">
-                            <a class="nav-link" href="#">
-                                <i class="bi bi-person-circle" style="font-size: 45px; color: #a7bfe1"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            <?php else: ?>
-                <div class="collapse navbar-collapse" id="navbar-toggler"> 
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../html/login.php">
-                                <button type="button" class="btn btn-outline-light">Iniciar Sesión</button>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../php/logout.php">
-                                <button type="button" class="btn btn-outline-light">Registrarse</button>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            <?php endif; ?>
-        </div>
-    </nav>
-
-    <?php
-    $precio = 0;
-    if ($listaEntradas) {
-        foreach ($listaEntradas as $entrada) {
-            if ($entrada['id_evento'] == $id_evento) {
-                $precio = $entrada['precio'];
-                break;
-            }
+if ($listaEntradas) {
+    foreach ($listaEntradas as $entrada) {
+        if ($entrada['id_evento'] == $id_evento) {
+            $precio = $entrada['precio'];
+            break;
         }
     }
+}
 
-    $precio_total = 0;
-    if (isset($_POST['cantidad_entradas']) && !empty($_POST['cantidad_entradas'])) {
-        $cantidad_entradas = $_POST['cantidad_entradas'];
-        $precio_total = $precio * $cantidad_entradas;
+$precio_total = 0;
+
+if (isset($_POST['comprar'])) {
+    // Verificar si el usuario tiene una suspensión indefinida
+    if ($user['suspension'] == 1) {
+        echo '<script>alert("No puedes comprar. Tienes la cuenta suspendida indefinidamente."); window.location = "../index.php";</script>';
+        die();  // Detener la ejecución del script si hay una suspensión indefinida
     }
 
-    
-    ?>
+    $cantidad_entradas = isset($_POST['cantidad_entradas']) ? intval($_POST['cantidad_entradas']) : 0;
 
+    $precio_total = $cantidad_entradas * $precio;
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><b><?php echo $nombre_evento; ?></b></h5>
-                        <p class="card-text text-uppercase"><?php echo $artista; ?></p>
-                        <br><br>
-                        <p class="card-text text-uppercase"><b>Precio: <?php echo $precio ?></b></p>
-                        <form method="post">
-                            <label for="cantidad_entradas" class="card-text text-uppercase">Cantidad de entradas:</label>
-                            <input type="number" id="cantidad_entradas" name="cantidad_entradas" min="1" required>
-                            <br>
-                            <label for="descuento_acumulativo" class="card-text text-uppercase">¿Usar descuento acumulativo?</label>
-                            <input type="checkbox" id="descuento_acumulativo" name="descuento_acumulativo">
-                            <br><br><br><br>
-                            <p class="card-text text-uppercase" id="precio_total">PRECIO TOTAL: <?php echo $precio_total; ?></p>
-                            <input type="submit" value="COMPRAR" class="btn boton-card btn-outline-dark w-100">
-                        </form>
-                    </div>
+    if (isset($_POST['descuento_acumulativo']) && $_POST['descuento_acumulativo'] == 'on') {
+        if ($descuentoAcumulativo > 30) {
+            $descuentoAcumulativo = 30; 
+        }
+
+        $descuento = ($precio_total * $descuentoAcumulativo) / 100;
+        $precio_total -= $descuento;
+
+        // Descuento acumulativo a 0 si se utiliza
+        $nuevoDescuento = 0;
+    } else {
+        // Sumar 3 al descuento acumulativo si no se utiliza
+        $nuevoDescuento = min($descuentoAcumulativo + 3, 30);
+    }
+
+    try {
+        $id_usuario = $_SESSION['user_id'];
+
+        $insercion = $conexion->prepare("INSERT INTO compra (id_usuario, id_evento, cod_entrada, cantidad_entradas, precio_total) VALUES (:id_usuario, :id_evento, :cod_entrada, :cantidad_entradas, :precio_total)");
+
+        $insercion->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $insercion->bindParam(':id_evento', $id_evento, PDO::PARAM_INT);
+        $insercion->bindParam(':cod_entrada', $entrada['cod_entrada'], PDO::PARAM_STR);
+        $insercion->bindParam(':cantidad_entradas', $cantidad_entradas, PDO::PARAM_INT);
+        $insercion->bindParam(':precio_total', $precio_total, PDO::PARAM_INT);
+
+        $insercion->execute();
+
+        // Actualizar el descuento acumulativo en la base de datos
+        $sentenciaUpdate = $conexion->prepare("UPDATE usuario SET descuento_acumulativo = :nuevoDescuento WHERE id = :userId");
+        $sentenciaUpdate->bindParam(':nuevoDescuento', $nuevoDescuento, PDO::PARAM_INT);
+        $sentenciaUpdate->bindParam(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+        $sentenciaUpdate->execute();
+
+        header("Location: comprobante-pago.php");
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
+?>
+
+<?php include("../template/header.php"); ?>
+
+<head>
+    <link rel="stylesheet" href="../css/style-index.css">
+    <link rel="stylesheet" href="../css/style-vista-evento.css">
+    <title><?php echo $nombre_evento . " - Comprar"; ?></title>
+</head>
+
+<div class="container mb-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <img src="../../img/<?php echo $imagen; ?>" class="card-img-top" alt="Evento">
+                <div class="card-body">
+                    <h5 class="card-title"><b><?php echo $nombre_evento; ?></b></h5>
+                    <p class="card-text text-uppercase"><?php echo $artista; ?></p>
+                    <br>
+                    <p class="card-text text-uppercase">
+                        <b>Precio: $<?php echo ($precio > 0) ? $precio : 6000; ?></b>
+                    </p>
+                    <form method="post">
+                        <label for="cantidad_entradas" class="card-text text-uppercase">Cantidad de entradas:</label>
+                        <input type="number" id="cantidad_entradas" name="cantidad_entradas" min="1" required>
+                        <br>
+                        <label for="descuento_acumulativo" class="card-text text-uppercase">¿Usar descuento acumulativo?</label>
+                        <input type="checkbox" id="descuento_acumulativo" name="descuento_acumulativo">
+                        <p class="card-text">Su descuento acumulativo es de: <?php echo $user['descuento_acumulativo']; ?></p>
+                        <br>
+                        <p class="card-text text-uppercase" id="precio_total">PRECIO TOTAL: $0</p>
+                        <input type="submit" name="comprar" id="comprar" value="COMPRAR" class="btn boton-card btn-outline-dark w-100">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        document.getElementById('cantidad_entradas').addEventListener('input', function() {
-            var cantidad = this.value;
-            var precioUnitario = <?php echo $precio; ?>;
-            var precioTotal = cantidad * precioUnitario;
-            document.getElementById('precio_total').textContent = 'PRECIO TOTAL: ' + precioTotal;
-        });
-    </script>
+<script>
+    document.getElementById('cantidad_entradas').addEventListener('input', function() {
+        actualizarPrecio();
+    });
 
-    <script>
-        document.getElementById('descuento_acumulativo').addEventListener('change', function() {
-            var checkbox = this;
-            var cantidad = parseInt(document.getElementById('cantidad_entradas').value);
-            var precioUnitario = <?php echo $precio_js; ?>;
-            var descuentoAcumulativo = <?php echo $descuento_acumulativo_js; ?>;
-            var porcentajeDescuento = 0.35; // Descuento máximo del 35%
-            var precioTotal = cantidad * precioUnitario;
+    document.getElementById('descuento_acumulativo').addEventListener('change', function() {
+        actualizarPrecio();
+    });
 
-            if (checkbox.checked && descuentoAcumulativo) {
-                var descuento = precioTotal * porcentajeDescuento;
-                precioTotal = precioTotal - descuento;
-            }
+    function actualizarPrecio() {
+        var cantidad = parseInt(document.getElementById('cantidad_entradas').value) || 0;
+        var precioUnitario = <?php echo ($precio > 0) ? $precio : 6000; ?>;
+        var descuentoAcumulativo = document.getElementById('descuento_acumulativo').checked;
+        var porcentajeDescuento = <?php echo $descuento_acumulativo_js; ?>;
 
-            document.getElementById('precio_total').textContent = 'PRECIO TOTAL: ' + precioTotal;
-        });
-    </script>
+        var precioTotal = cantidad * precioUnitario;
 
+        if (descuentoAcumulativo) {
+            var descuento = (precioTotal * porcentajeDescuento) / 100;
+            precioTotal = precioTotal - descuento;
+        }
 
-    <footer class="bg-transparent text-center border-top" style="border-color: #a7bfe1;">
-        <div class="container p-4 pb-0">
-            <section class="mb-4" id="seccion-contacto">
-                <a class="boton-footer btn btn-outline-light btn-floating m-1 rounded-circle" href="https://www.instagram.com/novath011/" role="button" target="_blank">
-                    <i class="bi bi-instagram" style="font-size: 24px;"></i>
-                </a>
-                <a class="boton-footer btn btn-outline-light btn-floating m-1 rounded-circle" href="https://www.youtube.com/channel/UC8yeaYyXegshGcQ4eifyu-w" role="button" target="_blank">
-                    <i class="bi bi-youtube" style="font-size: 24px;"></i>
-                </a>
-                <a class="boton-footer btn btn-outline-light btn-floating m-1 rounded-circle" href="https://twitter.com/Novath01" role="button" target="_blank">
-                    <i class="bi bi-google" style="font-size: 24px;"></i>
-                </a>
-                <a class="boton-footer btn btn-outline-light btn-floating m-1 rounded-circle" href="https://www.twitch.tv/novath01" role="button" target="_blank">
-                    <i class="bi bi-twitch" style="font-size: 24px;"></i>
-                </a>
-            </section>
-        </div>
-        <div class="text-center p-3" style="color: #a7bfe1;">
-            © 2023 NOVATH.com
-        </div>
-    </footer>
-</body>
-</html> 
+        document.getElementById('precio_total').textContent = 'PRECIO TOTAL: $' + precioTotal.toFixed(2);
+    }
+</script>
+
+<?php include("../template/footer.php"); ?>

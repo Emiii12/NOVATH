@@ -29,7 +29,7 @@ header a span {
     background: transparent;
 }
 
-.contenedor {
+.container-main {
     position: absolute;
     background: transparent;
     width: 500px;
@@ -47,19 +47,19 @@ header a span {
     padding: 5px 0;
 }
 
-.contenedor .logo-contenedor {
+.container-main img {
     position: absolute;
     width: 100px;
     left: 50%;
     transform: translate(-50%, -150%);
 }
 
-.campo-login {
+.register-sector {
     width: 100%;
     padding: 40px;
 }
 
-.campo-login h2 {
+.register-sector h2 {
     font-size: 2em;
     color: #a7bfe1;
     text-align: center;
@@ -70,8 +70,6 @@ header a span {
     position: relative;
     width: 100%;
     height: 50px;
-    border: 1px solid #a7bfe1;
-    border-radius: 10px;
     color: #a7bfe1;
     margin: 30px 0;
 }
@@ -81,15 +79,10 @@ header a span {
     top: 50%;
     left: 5px;
     transform: translateY(-50%);
-    font-size: 1em;
+    font-size: 1rem;
     color: #a7bfe1;
     font-weight: 500;
     pointer-events: none;
-    transition: .3s;
-}
-
-.input-box input:focus~label,
-.input-box input:valid~label {
     top: -17px;
 }
 
@@ -98,8 +91,9 @@ header a span {
     height: 100%;
     background: transparent;
     border: none;
+    border-bottom: 1px solid #a7bfe1;
     outline: none;
-    font-size: 1em;
+    font-size: 1rem;
     color: #a7bfe1;
     font-weight: 300;
     padding: 0 35px 0 5px;
@@ -113,7 +107,7 @@ header a span {
     line-height: 57px;
 }
 
-.btn-login {
+.btn-register {
     width: 50%;
     transform: translateX(50%);
     height: 45px;
@@ -121,30 +115,100 @@ header a span {
     border: .3px solid #a7bfe1;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1rem;
     color: #a7bfe1;
     transition: .3s;
 }
 
-.btn-login:hover {
+.btn-register:hover {
     background: #a7bfe1;
-    color: #302b63;
+    color: #29273b;
 }
 
 .register-link {
-    font-size: .8em;
     font-weight: 300;
     text-align: center;
     color: #a7bfe1;
     margin: 20px;
 }
 
-.register-link p a {
+.register-link p a b, .register-link p {
+    font-size: 1em;
     color: #a7bfe1;
     text-decoration: none;
-    font-weight: 500;
 }
 
 .register-link p a:hover {
     text-decoration: underline;
+}
+
+
+@media screen and (max-width: 768px) {
+    .container-main {
+        width: 80%;
+        max-width: 400px;
+        height: 650px;
+    }
+
+    .container-main img {
+        width: 80px;
+    }
+
+    .register-sector h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-box label {
+        top: -9px;
+    }
+    .input-box input, .input-box label {
+        font-size: 0.8rem;
+    }
+
+    .input-box .icon {
+        font-size: 1rem;
+    }
+
+    .btn-register {
+        font-size: 0.9rem;
+        height: 35px;
+    }
+
+    .register-link p a b, .register-link p {
+        font-size: .9em;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container-main img {
+        width: 70px;
+    }
+
+    .register-sector h2 {
+        font-size: 1.2rem;
+    }
+
+    .input-box label {
+        top: -8px;
+    }
+    .input-box input, .input-box label {
+        font-size: 0.7rem;
+    }
+
+    .input-box .icon {
+        font-size: 0.8rem;
+    }
+
+    .btn-register {
+        font-size: 0.8rem;
+        height: 35px;
+    }
+
+    header a span {
+        display: none;
+    }
+
+    .register-link p a b, .register-link p {
+        font-size: .8em;
+    }
 }

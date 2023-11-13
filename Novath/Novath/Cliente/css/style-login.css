@@ -29,7 +29,7 @@ header a span {
     background: transparent;
 }
 
-.contenedor {
+.container-main {
     position: absolute;
     background: transparent;
     width: 500px;
@@ -47,19 +47,19 @@ header a span {
     padding: 5px 0;
 }
 
-.contenedor .logo-contenedor {
+.container-main img {
     position: absolute;
     width: 100px;
     left: 50%;  
     transform: translate(-50%, -150%);
 }
 
-.campo-login {
+.login-sector {
     width: 100%;
     padding: 40px;
 }
 
-.campo-login h2 {
+.login-sector h2 {
     font-size: 2em;
     color: #a7bfe1;
     text-align: center;
@@ -70,7 +70,6 @@ header a span {
     position: relative;
     width: 100%;
     height: 50px;
-    border: 1px solid #a7bfe1;
     border-radius: 10px;
     color: #a7bfe1;
     margin: 30px 0;
@@ -85,11 +84,6 @@ header a span {
     color: #a7bfe1;
     font-weight: 500;
     pointer-events: none;
-    transition: .3s;
-}
-
-.input-box input:focus~label,
-.input-box input:valid~label {
     top: -17px;
 }
 
@@ -98,7 +92,7 @@ header a span {
     height: 100%;
     background: transparent;
     border: none;
-    outline: none;
+    border-bottom: 1px solid #a7bfe1;
     font-size: 1em;
     color: #a7bfe1;
     font-weight: 300;
@@ -147,4 +141,70 @@ header a span {
 
 .register-link p a:hover {
     text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    .container-main {
+        width: 80%;
+        max-width: 400px;
+        height: 450px;
+    }
+
+    .container-main img {
+        width: 80px;
+    }
+
+    .login-sector h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-box label {
+        top: -9px;
+    }
+    .input-box input, .input-box label {
+        font-size: 0.8rem;
+    }
+
+    .input-box .icon {
+        font-size: 1rem;
+    }
+
+    .btn-login {
+        font-size: 0.9rem;
+        height: 35px;
+    }
+
+    .register-link p a b, .register-link p {
+        font-size: .9em;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container-main img {
+        width: 70px;
+    }
+
+    .login-sector h2 {
+        font-size: 1.2rem;
+    }
+
+    .input-box label {
+        top: -8px;
+    }
+    .input-box input, .input-box label {
+        font-size: 0.7rem;
+    }
+
+    .input-box .icon {
+        font-size: 0.8rem;
+    }
+
+    .btn-login {
+        font-size: 0.8rem;
+        height: 35px;
+    }
+
+    .register-link p a b, .register-link p {
+        font-size: .8em;
+    }
 }

@@ -15,7 +15,7 @@ if ((!empty($txtEmail)) && (!empty($txtContrasena))) {
     if ($user && password_verify($txtContrasena, $user['contrasena'])) {
         if ($user['administrador'] || $user['super_admin']) {
             $_SESSION['user_id'] = $user['id'];
-            header('Location: html/inicio-admin.php');
+            header('Location: html/start-admin.php');
             exit();
         } else {
             $message = 'Acceso denegado. No tienes los permisos necesarios.';
@@ -53,20 +53,20 @@ if ((!empty($txtEmail)) && (!empty($txtContrasena))) {
         <p><?= $message ?></p>
     <?php endif; ?>
 
-    <div class="contenedor">
-        <div class="campo-login">
-            <img class="logo-contenedor" src="img/NOVATH-claro.png" alt="NOVATH">
-            <h2>Iniciá Sesión</h2>
+    <div class="container-main">
+        <div class="login-sector">
+            <img src="img/NOVATH-claro.png" alt="NOVATH">
             <form method="POST">
+                <h2>Iniciá Sesión</h2>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <input type="email" name="txtEmail" required>
-                    <label>Email</label>
+                    <input type="email" name="txtEmail" id="txtEmail" required>
+                    <label for="txtEmail">Email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" name="txtContrasena" required>
-                    <label>Contraseña</label>
+                    <input type="password" name="txtContrasena" id="txtContrasena" required>
+                    <label for="txtContrasena">Contraseña</label>
                 </div>
                 <button class="btn-login" type="submit">Iniciar</button>
             </form>

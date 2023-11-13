@@ -5,62 +5,23 @@ include("../php/conexion.php");
 $txtNombre = !empty($_POST['txtNombre']) ? $_POST['txtNombre'] : "";
 $txtApellido = !empty($_POST['txtApellido']) ? $_POST['txtApellido'] : "";
 $txtEmail = !empty($_POST['txtEmail']) ? $_POST['txtEmail'] : "";
+$txtDni = !empty($_POST['txtDni']) ? $_POST['txtDni'] : "";
 $txtContrasena = !empty($_POST['txtContrasena']) ? $_POST['txtContrasena'] : "";
 $txtTelefono = !empty($_POST['txtTelefono']) ? $_POST['txtTelefono'] : "";
 
 $message;
 
 if( !empty($txtEmail) && (!empty($txtApellido)) && (!empty($txtEmail)) && (!empty($txtContrasena)) && (!empty($txtTelefono)) ) {
-    $sentenciaSQL = $conexion->prepare("INSERT INTO usuario (nombre, apellido, email, contrasena, telefono, descuento_acumulativo, suspension, administrador, super_admin) VALUES (:nombre, :apellido, :email, :contrasena, :telefono, '0', '0', '1', '0')");
+    $sentenciaSQL = $conexion->prepare("INSERT INTO usuario (nombre, apellido, email, dni, contrasena, telefono, descuento_acumulativo, suspension, administrador, super_admin) VALUES (:nombre, :apellido, :email, :dni, :contrasena, :telefono, '0', '0', '1', '0')");
     $sentenciaSQL->bindParam(':nombre', $txtNombre);
     $sentenciaSQL->bindParam(':apellido', $txtApellido);
     $sentenciaSQL->bindParam(':email', $txtEmail);
+    $sentenciaSQL->bindParam(':dni', $txtDni);
     $txtContrasena = password_hash(($txtContrasena), PASSWORD_BCRYPT);
     $sentenciaSQL->bindParam(':contrasena', $txtContrasena);
     $sentenciaSQL->bindParam(':telefono', $txtTelefono);
     $sentenciaSQL->execute();
-
 }
-
-session_start();
-
-if( isset($_SESSION['user_id'])) {
-    $sentenciaSQL = $conexion->prepare("SELECT id, email, contrasena, nombre, apellido, administrador, super_admin FROM usuario WHERE id=:id AND super_admin='1'");
-    $sentenciaSQL->bindParam(':id', $_SESSION['user_id']);
-    $sentenciaSQL->execute();
-    $cuenta = $sentenciaSQL->fetch(PDO::FETCH_ASSOC);
-
-    // Verificar si se obtuvo un resultado válido antes de asignar a $user
-    if($cuenta !== false && count($cuenta) > 0) {
-        $user = $cuenta;
-    } else {
-        echo '
-            <script>
-                alert("No tienes los permisos necesarios. Vuelve a iniciar seisón.");
-                window.location = "../index.php";
-            </script>
-        ';
-        //header("Location: ../index.php");
-        session_destroy();
-        die();
-    }
-} else {
-    echo '
-            <script>
-                alert("Inicia sesión antes de ingresar");
-                window.location = "../index.php";
-            </script>
-        ';
-    //header("Location: ../index.php");
-    die();
-}
-
-/*
-<?php if( !empty($message) ) :  ?>
-        <p><?= $message ?></p>   
-    <?php endif; ?>
-
-*/
 ?>
 
 <!DOCTYPE html>
@@ -78,14 +39,14 @@ if( isset($_SESSION['user_id'])) {
     
 
     <header>
-        <a href="inicio-admin.php"><span><ion-icon name="chevron-back-outline"></ion-icon></span></a>
+        <a href="start-admin.php"><span><ion-icon name="chevron-back-outline"></ion-icon></span></a>
     </header>
 
-    <div class="contenedor">
-        <div class="campo-login">
-            <img class="logo-contenedor" src="../img/NOVATH-claro.png" alt="NOVATH">
-            <h2>Registráte</h2>
+    <div class="container-main">
+        <div class="register-sector">
+            <img class="logo-container" src="../img/NOVATH-claro.png" alt="NOVATH">
             <form method="POST">
+                <h2>Registrar Admin</h2>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="person"></ion-icon></span>
                     <input type="text" name="txtNombre" id="txtNombre" required>
@@ -95,6 +56,11 @@ if( isset($_SESSION['user_id'])) {
                     <span class="icon"><ion-icon name="person"></ion-icon></span>
                     <input type="text" name="txtApellido" id="txtApellido" required>
                     <label for="txtApellido">Apellido</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="card"></ion-icon></span>
+                    <input type="text" name="txtDni" id="txtDni" required>
+                    <label for="txtDni">DNI</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
@@ -111,7 +77,7 @@ if( isset($_SESSION['user_id'])) {
                     <input type="tel" name="txtTelefono" id="txtTelefono" required>
                     <label for="txtTelefono">Teléfono</label>
                 </div>
-                <button class="btn-register">Crear Cuenta</button>
+                <button class="btn-register">Registrar</button>
             </form>
         </div>
     </div>
