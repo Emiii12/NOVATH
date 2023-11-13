@@ -43,6 +43,8 @@ CREATE TABLE Compra (
   cod_entrada int,
   id_evento int,
   id_usuario int,
+  cantidad_entradas int,
+  precio_total float,
   PRIMARY KEY (id),
   FOREIGN KEY (id_evento) REFERENCES Evento(id_evento),
   FOREIGN KEY (cod_entrada) REFERENCES Entrada(cod_entrada),
